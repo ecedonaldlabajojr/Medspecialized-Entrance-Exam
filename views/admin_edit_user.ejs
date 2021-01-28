@@ -1,0 +1,135 @@
+<%- include ('partials/header') %>
+<%- include ('partials/navbar') %>
+
+
+
+
+
+<!-- Edit User Form -->
+<div class="row justify-content-center mx-0" style="margin-top: 3%">
+    <div class="col-md-7 col-lg-6" style="max-width: 500px;">
+        <div class="card shadow-lg">
+            <div class="card-header text-center">
+                <h2 class="text-secondary">Edit User</h2>
+            </div>
+            <div class="card-body">
+
+                <% if (message.length > 0) { %>
+                <div class="alert alert-danger alert-dismissible">
+                    <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <ul class="my-2">
+                        <% message.forEach(item => { %>
+                        <li><%= item.msg %></li>
+                        <%}) %>
+                    </ul>
+                </div>
+                <% } %>
+
+                <form action="/admin/users/edit-user/<%= user._id %>" method="POST">
+                    <div class="row">
+                        <!-- First Name -->
+                        <div class="input-group col-lg-6 mb-4">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text bg-white px-2 border-md border-right-0">
+                                    <i class="fa fa-user text-muted"></i>
+                                </span>
+                            </div>
+                            <input id="firstname" type="text" name="firstname" placeholder="First Name"
+                                class="form-control bg-white border-left-0 border-md" value="<%= user.firstname %>">
+                        </div>
+
+                        <!-- Last Name -->
+                        <div class="input-group col-lg-6 mb-4">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text bg-white px-2 border-md border-right-0">
+                                    <i class="fa fa-user text-muted"></i>
+                                </span>
+                            </div>
+                            <input id="lastname" type="text" name="lastname" placeholder="Last Name"
+                                class="form-control bg-white border-left-0 border-md" value="<%= user.lastname %>">
+                        </div>
+
+                        <!-- Email Address -->
+                        <div class="input-group col-lg-12 mb-4">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text bg-white px-2 border-md border-right-0">
+                                    <i class="fa fa-envelope text-muted"></i>
+                                </span>
+                            </div>
+                            <input id="email" type="email" name="email" placeholder="Email Address"
+                                class="form-control bg-white border-left-0 border-md" value="<%= user.email %>">
+                        </div>
+
+                        <!-- Phone Number -->
+                        <div class="input-group col-lg-12 mb-4">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text bg-white px-2 border-md border-right-0">
+                                    <i class="fa fa-phone-square text-muted"></i>
+                                </span>
+                            </div>
+                            <input id="phonenum" type="number" name="phonenum" placeholder="Phone Number"
+                                class="form-control bg-white border-md border-left-0 pl-3" value="<%= user.phone %>">
+                        </div>
+
+                        <!-- Job -->
+                        <div class="input-group col-lg-12 mb-4">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text bg-white px-2 border-md border-right-0">
+                                    <i class="fa fa-user-tag"></i>
+                                </span>
+                            </div>
+                            <select id="job" name="role"
+                                class="form-control custom-select bg-white border-left-0 border-md">
+                                <% if (user.role === "Admin") { %>
+                                <option value="Trainee">Trainee</option>
+                                <option value="Admin" selected>Admin</option>
+                                <% } else { %>
+                                <option value="Trainee" selected>Trainee</option>
+                                <option value="Admin">Admin</option>
+                                <% } %>
+                            </select>
+                        </div>
+
+
+                        <div class="input-group mb-4 col-lg-12 align-items-center">
+                            <hr style="width:30%;text-align:left;margin-left:5px; height: 2px; border-color: lightgrey">
+                            <span style="font-size: 0.9rem">Change Password</span>
+                            <hr
+                                style="width:30%;text-align:right;margin-right:5px; height: 2px; border-color: lightgrey">
+                        </div>
+
+                        <!-- Password -->
+                        <div class="input-group col-lg-6 mb-4">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text bg-white px-2 border-md border-right-0">
+                                    <i class="fa fa-lock text-muted"></i>
+                                </span>
+                            </div>
+                            <input id="password" type="password" name="password" placeholder="New Password"
+                                class="form-control bg-white border-left-0 border-md">
+                        </div>
+
+
+                        <!-- Password Confirmation -->
+                        <div class="input-group col-lg-6 mb-4">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text bg-white px-2 border-md border-right-0">
+                                    <i class="fa fa-lock text-muted"></i>
+                                </span>
+                            </div>
+                            <input id="passwordConfirmation" type="password" name="passwordConfirmation"
+                                placeholder="Confirm Password" class="form-control bg-white border-left-0 border-md">
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="form-group col-lg-12 mx-auto mb-0">
+                            <button class="btn btn-primary btn-block py-2 text-sm" type="submit">Confirm
+                                Edit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include ('partials/footer') %>

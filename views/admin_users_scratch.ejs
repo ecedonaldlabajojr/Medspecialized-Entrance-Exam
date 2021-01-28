@@ -1,0 +1,116 @@
+<%- include('partials/header') %>
+<%- include('partials/navbar') %>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">
+    Launch static backdrop modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Understood</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="table-users" style="padding-top: 50px; margin: 0 10vw">
+
+    <!-- Bootstrap Alert for Successfully Adding/Editing/Deleting User -->
+    <% if (message.length > 0) { %>
+    <div class="row btn-block">
+        <div class="alert alert-success alert-dismissible">
+            <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <ul class="my-2">
+                <% message.forEach(item => { %>
+                <li><%= item.msg %></li>
+                <%}) %>
+            </ul>
+        </div>
+    </div>
+    <% } %>
+
+
+    <!-- Display Users that are fetched from MongoDB "userDB" db.users collection -->
+    <div class="row align-items-center ml-0 mr-0">
+        <% if (users !== null && users.length > 0) { %>
+        <h2>Users</h2>
+        <% } %>
+        <button class="btn btn-info ml-auto m-0" onclick="window.location.href='users/add-user'">Add New User</button>
+    </div>
+
+
+    <!-- Table : Display only if there are user data returned -->
+    <% if (users !== null && users.length > 0) { %>
+    <table class="table table-sm table-hover mt-4" id="users-table">
+        <thead>
+            <tr>
+                <th scope="col" style="width: 10%;">Email</th>
+                <th scope="col" class="text-center">Name</th>
+                <th scope="col" class="text-center">Role</th>
+                <th scope="col" class="text-center">View</th>
+                <th scope="col" class="text-center">Update</th>
+                <th scope="col" class="text-center">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Loop Over returned array of Users from database -->
+            <% users.forEach(user => { %>
+            <tr>
+                <th scope="row"><%= user.email %></th>
+                <td class="text-center"><%= user.firstname %>&nbsp<%= user.lastname %></td>
+                <td class="text-center"><%= user.role %></td>
+
+                <td class="text-center"><a href="/admin/users/<%=user._id %>"><img id="view-icon" src="/images/view.svg"
+                            alt="view-img"></a></td>
+
+                <td class="text-center"><a href="/admin/users/edit-user/<%= user._id %>"><img id="edit-icon"
+                            src="/images/edit.svg" alt="edit-img"></a></td>
+
+                <td class="text-center btn-delete-user"><a href="/admin/users/delete-user/<%= user._id %>"><img
+                            id="trash-icon" src="/images/trash.svg" alt="trash-img"></a></td>
+            </tr>
+            <% }) %>
+        </tbody>
+    </table>
+
+    <% } else { %>
+
+    <!-- Display Text when there are currently no available users to display -->
+    <div class="row text-center mt-4 pt-4">
+        <h2>There are currently no users.</h2>
+    </div>
+    <% } %>
+</div>
+
+
+
+
+
+
+
+
+<script>
+    $(".btn-delete-user").on('click', () => {
+        if (confirm("Delete user?")) {
+            return true;
+        } else {
+            return false;
+        }
+    });
+</script>
+<% - include('partials/footer') %>

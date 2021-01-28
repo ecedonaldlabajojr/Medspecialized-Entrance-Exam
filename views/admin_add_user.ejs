@@ -6,13 +6,24 @@
 
 
 <!-- Registration Form -->
-<div class="row justify-content-center" style="margin-top: 5%">
+<div class="row justify-content-center" style="margin-top: 3%">
     <div class="col-md-7 col-lg-6" style="max-width: 500px;">
         <div class="card shadow-lg">
             <div class="card-header text-center">
                 <h2 class="text-secondary">Registration</h2>
             </div>
             <div class="card-body">
+
+                <% if (message.length > 0) { %>
+                <div class="alert alert-danger alert-dismissible">
+                    <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <ul class="my-2">
+                        <% message.forEach(item => { %>
+                        <li><%= item.msg %></li>
+                        <%}) %>
+                    </ul>
+                </div>
+                <% } %>
 
                 <form action="/admin/users/add-user" method="POST">
                     <div class="row">
@@ -99,9 +110,9 @@
 
                         <!-- Submit Button -->
                         <div class="form-group col-lg-12 mx-auto mb-0">
-                            <button class="btn btn-primary btn-block py-2 text-sm" type="submit">Create User</button>
+                            <button class="btn btn-primary btn-block py-2 text-sm" type="submit">Create
+                                User</button>
                         </div>
-
                     </div>
                 </form>
             </div>

@@ -9,7 +9,7 @@ body {
 
 
 /* ____________________ NAVIGATION BAR ____________________ */
-.nav-link {
+#navigation-bar>.nav-link {
     padding-left: 20px !important;
     padding-right: 20px !important;
     font-size: 1rem;
@@ -21,7 +21,7 @@ body {
     background-color: transparent !important;
 }
 
-.nav-link:hover {
+#navigation-bar>.nav-link:hover {
     background-color: transparent !important;
     transform: scale(1.1);
     transition: 0.1s ease;
@@ -195,5 +195,41 @@ a:hover {
 
 .social-icon {
     max-width: 30px;
-    z-index: 1000;
+    /* z-index: 1000; */
+}
+
+
+/* Flash- Connect Error/Sucess Message Div */
+.alert {
+    font-size: 15px;
+}
+
+
+/* Resize icon of View/Edit/Delete on Admin/users page */
+#view-icon {
+    width: 40px !important;
+}
+
+#edit-icon {
+    width: 20px !important;
+}
+
+#trash-icon {
+    width: 20px !important;
+}
+
+
+.table td,
+.table th {
+    vertical-align: middle;
+}
+
+
+
+
+/* ____________________ MODAL - DISPLAY USER DETAILS ____________________ */
+/* Modal Labels*/
+.modal-label {
+    font-size: 1rem;
+    font-weight: 900;
 }
