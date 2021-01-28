@@ -1,0 +1,99 @@
+<%- include('partials/header') %>
+
+
+<body class="landing-page">
+    <%- include('partials/navbar') %>
+
+
+    <div class="landing-text">
+        <h3>Learning Experience. Simplified.</h3>
+        <div class="text-check">
+            <i class="fas fa-check-circle"></i>
+            <p>Easily access stored data.</p>
+        </div>
+
+        <div class="text-check">
+            <i class="fas fa-check-circle"></i>
+            <p>Customize your learning path.</p>
+        </div>
+
+        <div class="text-check">
+            <i class="fas fa-check-circle"></i>
+            <p>Manage your courses for users and teams.</p>
+        </div>
+    </div>
+
+
+
+    <!-- _________________ LOGIN FORM _________________-->
+
+    <div class="container">
+        <div class="login-wrap">
+            <div class="login-container">
+                <div class="card login-form">
+                    <div class="card-body">
+                        <p class="card-title text-center">
+                            Sign in to your <span class="medSpec-text-bold">MedSpecialized</span> Learning
+                            Management
+                            Center
+                        </p>
+                        <div class="card-text">
+                            <!-- Input E-mail Address -->
+                            <div class="form-group">
+                                <div class="form-control d-flex align-items-center">
+                                    <img class="message-img" src="images/message.svg" alt="message-img.svg">
+                                    <input type="email" class="form-control" id="email" name="email" autocomplete="off"
+                                        placeholder="E-mail Address">
+                                </div>
+                            </div>
+
+                            <!-- Input Password -->
+                            <div class="form-group">
+                                <div class="form-control d-flex">
+                                    <img class="message-img" src="images/lock.svg" alt="lock-img.svg">
+                                    <input type="password" class="form-control" id="password" name="password"
+                                        autocomplete="off" placeholder="Password">
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+                            <div class="row justify-content-center" id="forgot-password">
+                                <a href="#" style="font-size: 1rem;">Forgot password?</a>
+                            </div>
+
+
+                            <div class="row align-items-center" id="hr-line">
+                                <hr
+                                    style="width:40%;text-align:left;margin-left:5px; height: 2px; border-color: lightgrey">
+                                <span style="font-size: 0.9rem">or</span>
+                                <hr
+                                    style="width:40%;text-align:right;margin-right:5px; height: 2px; border-color: lightgrey">
+                            </div>
+
+
+                            <div class="row justify-content-center mb-4">
+                                <a class="btn btn-outline-secondary social-login" href=""><img class="social-icon"
+                                        src="images/google.svg" alt="google-logo">
+                                    Sign in with Gmail</a>
+
+                                <a class="btn btn-outline-secondary social-login" href=""><img class="social-icon"
+                                        src="images/mem.png" alt="google-logo">
+                                    Sign in with MEM</a>
+                            </div>
+                            <div class="text-center">
+                                <p style="font-size: 0.9rem;">Back</p>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+    <% - include('partials/footer') %>
