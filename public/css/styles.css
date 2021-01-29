@@ -204,6 +204,7 @@ a:hover {
     font-size: 15px;
 }
 
+/* ____________________ ADMIN/USERS PAGE ____________________ */
 
 /* Resize icon of View/Edit/Delete on Admin/users page */
 #view-icon {
@@ -224,12 +225,23 @@ a:hover {
     vertical-align: middle;
 }
 
+.user-default-img {
+    max-width: 30px;
+}
+
 
 
 
 /* ____________________ MODAL - DISPLAY USER DETAILS ____________________ */
 /* Modal Labels*/
 .modal-label {
-    font-size: 1rem;
+    font-size: 0.9rem !important;
     font-weight: 900;
+}
+
+#modal-user-role,
+#modal-user-email,
+#modal-user-address,
+#modal-user-phone {
+    font-size: 1.0rem !important;
 }

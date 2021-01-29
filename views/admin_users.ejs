@@ -1,22 +1,36 @@
 <%- include('partials/header') %>
 <%- include('partials/navbar') %>
 
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#user-modal">
-    Launch demo modal
-</button>
 
-<!-- Modal -->
+<!-- Modal for viewing User details-->
 <div class="modal fade" id="user-modal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="card">
                 <div class="card-body">
-                    <div class="card-title mb-4">
-                        <div class="d-flex justify-content-start">
-                            <div class="ml-3">
-                                <h2 class="d-block">Some Name</h2>
+                    <div class="card-title mb-2">
+                        <div class="d-flex justify-content-start ml-0 mb-3 align-items-center">
+                            <div class="col-3">
+                                <img src="/images/user-default.svg" alt="user-default-img">
                             </div>
+                            <div class="col-9">
+                                <div class="row">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <h2 id="modal-user-fullname" style="color:#0f52BA;">
+                                                Full-Name
+                                                here
+                                            </h2>
+                                        </div>
+                                        <div class="col-12">
+                                            <h5 class="btn btn-secondary btn-sm btn-block my-0 ml-1"
+                                                id="modal-user-role">
+                                                Role Here</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="ml-auto">
                                 <input type="button" class="btn btn-primary d-none" id="btnDiscard"
                                     value="Discard Changes" />
@@ -34,27 +48,6 @@
                             </ul>
                             <div class="tab-content ml-1" id="myTabContent">
                                 <div class="tab-pane fade show active" role="tabpanel">
-
-                                    <div class="row">
-                                        <div class="col-sm-3 col-md-3 col-3">
-                                            <label class="modal-label">Full Name:</label>
-                                        </div>
-                                        <div class="col-sm-9 col-md-9 col-9 text-left pl-5" id="modal-user-fullname">
-                                            Donald P. Labajo Jr.
-                                        </div>
-                                    </div>
-                                    <hr />
-
-                                    <div class="row">
-                                        <div class="col-sm-3 col-md-3 col-3">
-                                            <label class="modal-label">Role:</label>
-                                        </div>
-                                        <div class="col-sm-9 col-md-9 col-9 text-left pl-5" id="modal-user-role">
-                                            Trainee
-                                        </div>
-                                    </div>
-                                    <hr />
-
                                     <div class="row">
                                         <div class="col-sm-3 col-md-3 col-3">
                                             <label class="modal-label">Address:</label>
@@ -86,33 +79,15 @@
                                         </div>
                                     </div>
                                     <hr />
-
                                 </div>
                             </div>
                         </div>
                     </div>
-
-
                 </div>
-                <!-- <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                ...
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div> -->
             </div>
         </div>
-
     </div>
 </div>
-
 
 
 <div class="table-users" style="padding-top: 50px; margin: 0 10vw">
@@ -142,12 +117,12 @@
     </div>
 
 
-    <!-- Table : Display only if there are user data returned -->
+    <!-- _____________ Table : Display only if there are user data returned _____________-->
     <% if (users !== null && users.length > 0) { %>
     <table class="table table-sm table-hover mt-4" id="users-table">
         <thead>
             <tr>
-                <th scope="col" style="width: 10%;">Email</th>
+                <th scope="col" style="width: 5vw;">Email</th>
                 <th scope="col" class="text-center">Name</th>
                 <th scope="col" class="text-center">Role</th>
                 <th scope="col" class="text-center">View</th>
@@ -158,12 +133,23 @@
         <tbody>
             <!-- Loop Over returned array of Users from database -->
             <% users.forEach(user => { %>
+
+            <!-- To be sent to modal. Stringify first -->
+            <% let userJSON = JSON.stringify(user) %>
             <tr>
-                <th scope="row"><%= user.email %></th>
+                <th scope="row">
+                    <div class="row">
+                        <div class="col-3">
+                            <img class="user-default-img" src="/images/user-default.svg" alt="">
+                        </div>
+                        <div class="col-9 pl-0 text-left">
+                            <%= user.email %>
+                        </div>
+                    </div>
+                </th>
                 <td class="text-center"><%= user.firstname %>&nbsp<%= user.lastname %></td>
                 <td class="text-center"><%= user.role %></td>
-
-                <td class="text-center"><a href="#" data-val=<%= JSON.stringify(user) %> data-toggle="modal"
+                <td class="text-center"><a href="#" data-val="<%= userJSON %>" data-toggle="modal"
                         data-target="#user-modal"><img id="view-icon" src="/images/view.svg" alt="view-img"></a></td>
 
                 <td class="text-center"><a href="/admin/users/edit-user/<%= user._id %>"><img id="edit-icon"
@@ -196,13 +182,23 @@
 </script>
 
 
+<!-- When modal shows, substitute .text values inside using userObj attributes -->
 <script>
     $('#user-modal').on('show.bs.modal', function (event) {
         let userObj = $(event.relatedTarget).data('val');
-        $(this).find("#modal-user-fullname").text(`${userObj.firstname} ${userObj.lastname}`);
+        let fullName = userObj.firstname + " " + userObj.lastname;
+
+
+        $(this).find("#modal-user-fullname").text(fullName);
         $(this).find("#modal-user-role").text(userObj.role);
         $(this).find("#modal-user-phone").text(userObj.phone);
         $(this).find("#modal-user-email").text(userObj.email);
+
+        if (userObj.role === "Admin") {
+            $("#modal-user-role").removeClass('btn-secondary').addClass('btn-success');
+        } else if (userObj.role === "Trainee") {
+            $("#modal-user-role").removeClass('btn-success').addClass('btn-secondary');
+        }
 
     });
 </script>
