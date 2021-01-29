@@ -4,15 +4,16 @@
 
 
 
-
+<!-- ___________________ ACTION BAR ___________________ -->
+<%- include('partials/actionbar_admin') %>
 <!-- Edit User Form -->
-<div class="row justify-content-center mx-0" style="margin-top: 3%">
+<div class="row justify-content-center mx-0" style="margin-top: 1%">
     <div class="col-md-7 col-lg-6" style="max-width: 500px;">
         <div class="card shadow-lg">
             <div class="card-header text-center">
                 <h2 class="text-secondary">Edit User</h2>
             </div>
-            <div class="card-body">
+            <div class="card-body pb-1">
 
                 <% if (message.length > 0) { %>
                 <div class="alert alert-danger alert-dismissible">
@@ -67,7 +68,7 @@
                                     <i class="fa fa-phone-square text-muted"></i>
                                 </span>
                             </div>
-                            <input id="phonenum" type="number" name="phonenum" placeholder="Phone Number"
+                            <input id="phonenum" type="tel" name="phonenum" placeholder="Phone Number"
                                 class="form-control bg-white border-md border-left-0 pl-3" value="<%= user.phone %>">
                         </div>
 
@@ -122,9 +123,17 @@
                         </div>
 
                         <!-- Submit Button -->
-                        <div class="form-group col-lg-12 mx-auto mb-0">
-                            <button class="btn btn-primary btn-block py-2 text-sm" type="submit">Confirm
+                        <div class="form-group col-lg-12 mb-0" style="padding: 0 15px;">
+                            <button class="btn btn-primary btn-block py-2 mt-0" type="submit">Confirm
                                 Edit</button>
+                        </div>
+
+                        <!-- Cancel Edit and Go back to View All Users -->
+                        <div class="form-group col-lg-12 mt-1" style="padding: 0 15px;">
+                            <div class="btn btn-danger btn-block py-2 mt-2 mb-0"
+                                onclick="window.location.href='/cancel-edit'">Cancel
+                                Edit
+                            </div>
                         </div>
                     </div>
                 </form>
@@ -132,4 +141,5 @@
         </div>
     </div>
 </div>
+
 <%- include ('partials/footer') %>

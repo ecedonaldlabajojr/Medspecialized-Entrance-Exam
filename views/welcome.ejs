@@ -1,0 +1,32 @@
+<%- include('partials/header') %>
+
+<div id="section-welcome">
+    <%- include('partials/navbar') %>
+
+
+    <!-- ___________________ ACTION BAR ___________________ -->
+
+    <% if (loggedUser.role === "Trainee") { %>
+    <%- include('partials/actionbar_trainee') %>
+    <% } else if (loggedUser.role ==="Admin") { %>
+    <%- include('partials/actionbar_admin') %>
+    <% } %>
+
+
+    <h1 id="landing-text" style="visibility: hidden;">Hello, <%= loggedUser.firstname %> <%= loggedUser.lastname %></h1>
+</div>
+
+
+<!-- Scroll reveal animation for the `Welcome: <user_fullname>` -->
+<script>
+    $(window).on('load', () => {
+        $("#landing-text").css("display", "block");
+        ScrollReveal().reveal('#landing-text', {
+            origin: 'right',
+            distance: '100px',
+            duration: 2500
+        });
+    })
+</script>
+
+<%- include('partials/footer') %>

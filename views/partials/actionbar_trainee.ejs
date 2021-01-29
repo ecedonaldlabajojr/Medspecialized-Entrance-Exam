@@ -1,0 +1,14 @@
+<div class="row mx-0">
+    <div class="d-flex align-items-center" id="action-bar">
+        <div class="ml-auto mr-3">
+            <span>Logged in as:</span>&nbsp;
+            <b><%= loggedUser.firstname %></b>&nbsp;
+            <b style="color: blue">(<%= loggedUser.role %>)</b>
+        </div>
+        <button class="btn btn-danger m-0 pr-0 text-center" id="logout-btn" type="button"
+            onclick="location.href='/logout'">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Logout</span>
+        </button>
+    </div>
+</div>

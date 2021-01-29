@@ -7,7 +7,6 @@ body {
     font-family: 'Lato', sans-serif;
 }
 
-
 /* ____________________ NAVIGATION BAR ____________________ */
 #navigation-bar>.nav-link {
     padding-left: 20px !important;
@@ -34,19 +33,16 @@ body {
 }
 
 
+/* ____________________ LOG-IN PAGE BACKGROUND AND TEXT ____________________ */
 
-
-/* ____________________ LANDING PAGE BACKGROUND AND TEXT ____________________ */
-
-/* Setting landing page Background-color  */
+/* Setting login page Background-color  */
 .landing-page {
     background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/images/home-banner.jpg') no-repeat center center fixed;
     background-size: cover;
     height: 100vh;
 }
 
-
-/* Landing Text CSS */
+/* login Text CSS */
 .landing-text {
     position: absolute;
     left: 20vw;
@@ -78,7 +74,6 @@ h3 {
     margin-right: 5px;
     font-size: 1.4rem;
 }
-
 
 
 /* ____________________ LOGIN FORM ____________________ */
@@ -168,7 +163,7 @@ form {
 }
 
 #forgot-password a {
-    margin-top: 30px;
+    margin-top: 20px;
 }
 
 a {
@@ -186,12 +181,9 @@ a:hover {
     color: whitesmoke !important;
 }
 
-
 #hr-line {
     margin-top: 40px;
 }
-
-
 
 .social-icon {
     max-width: 30px;
@@ -204,7 +196,7 @@ a:hover {
     font-size: 15px;
 }
 
-/* ____________________ ADMIN/USERS PAGE ____________________ */
+/* ____________________ ADMIN_USERS PAGE ____________________ */
 
 /* Resize icon of View/Edit/Delete on Admin/users page */
 #view-icon {
@@ -225,11 +217,25 @@ a:hover {
     vertical-align: middle;
 }
 
+.text-user-role {
+    width: 80px !important;
+    height: 30px;
+    border-radius: 15px 50px;
+}
+
 .user-default-img {
     max-width: 30px;
 }
 
+#thead-usersData-row th {
+    color: whitesmoke;
+    background-color: #19456bc5 !important;
+    padding-left: 1.2%;
+}
 
+.custom-select {
+    width: 100px !important;
+}
 
 
 /* ____________________ MODAL - DISPLAY USER DETAILS ____________________ */
@@ -244,4 +250,53 @@ a:hover {
 #modal-user-address,
 #modal-user-phone {
     font-size: 1.0rem !important;
+}
+
+#modal-user-role {
+    border-radius: 15px 50px;
+    width: 150px !important;
+}
+
+
+/* ____________________  LANDING PAGE ____________________ */
+#section-welcome {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/images/using-laptop.jpg') no-repeat center center fixed;
+    background-size: cover;
+    height: 100vh;
+}
+
+#action-bar {
+    background-color: rgba(244, 244, 244, 1) !important;
+    height: 50px;
+    width: 100vw;
+    padding: 0px 10vw;
+}
+
+#logout-btn {
+    background-color: transparent;
+    color: black !important;
+    border: none;
+}
+
+.fas.fa-sign-out-alt {
+    color: black !important;
+}
+
+#logout-btn span {
+    position: relative;
+    top: -2px !important;
+}
+
+.dropdown-item {
+    font-size: 1rem !important;
+    color: black !important;
+}
+
+#landing-text {
+    position: absolute;
+    top: 45%;
+    left: 15%;
+    font-size: 4rem;
+    font-weight: 400;
+    color: #fde8cd;
 }

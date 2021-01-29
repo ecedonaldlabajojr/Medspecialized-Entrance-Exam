@@ -1,7 +1,6 @@
 <%- include('partials/header') %>
 <%- include('partials/navbar') %>
 
-
 <!-- Modal for viewing User details-->
 <div class="modal fade" id="user-modal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
@@ -48,16 +47,16 @@
                             </ul>
                             <div class="tab-content ml-1" id="myTabContent">
                                 <div class="tab-pane fade show active" role="tabpanel">
-                                    <div class="row">
+                                    <!-- <div class="row">
                                         <div class="col-sm-3 col-md-3 col-3">
                                             <label class="modal-label">Address:</label>
                                         </div>
-                                        <!-- PENDING: ADD ADDRESS! __________________________________________________________________________+++++++++++++++++++-->
+                                        PENDING: ADD ADDRESS! __________________________________________________________________________+++++++++++++++++++
                                         <div class="col-sm-9 col-md-9 col-9 text-left pl-5">
                                             Impel Down
                                         </div>
                                     </div>
-                                    <hr />
+                                    <hr /> -->
 
                                     <div class="row">
                                         <div class="col-sm-3 col-md-3 col-3">
@@ -90,29 +89,36 @@
 </div>
 
 
+<!-- ___________________ ACTION BAR ___________________ -->
+<%- include('partials/actionbar_admin') %>
+
+
+
+
 <div class="table-users" style="padding-top: 50px; margin: 0 10vw">
 
     <!-- Bootstrap Alert for Successfully Adding/Editing/Deleting User -->
     <% if (message.length > 0) { %>
     <div class="row btn-block">
-        <div class="alert alert-success alert-dismissible">
+        <div class="alert alert-<%= messageType %> alert-dismissible">
             <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
             <ul class="my-2">
                 <% message.forEach(item => { %>
                 <li><%= item.msg %></li>
-                <%}) %>
+                <% }) %>
             </ul>
         </div>
     </div>
     <% } %>
 
 
-    <!-- Display Users that are fetched from MongoDB "userDB" db.users collection -->
+    <!-- Display Users that are fetched from MongoDB " userDB" db.users collection -->
     <div class="row align-items-center ml-0 mr-0">
         <% if (users !== null && users.length > 0) { %>
         <h2>Users</h2>
         <% } %>
-        <button class="btn btn-info ml-auto m-0" onclick="window.location.href='users/add-user'">Add New
+        <button class="btn btn-success ml-auto m-0" onclick="window.location.href='users/add-user'"><i
+                class="fas fa-user-plus"></i>Add New
             User</button>
     </div>
 
@@ -121,9 +127,9 @@
     <% if (users !== null && users.length > 0) { %>
     <table class="table table-sm table-hover mt-4" id="users-table">
         <thead>
-            <tr>
-                <th scope="col" style="width: 5vw;">Email</th>
-                <th scope="col" class="text-center">Name</th>
+            <tr id="thead-usersData-row">
+                <th scope="col" style="width: 20%; padding-left:2px;">Email</th>
+                <th scope="col" class="text-center" style="width: 20%;">Name</th>
                 <th scope="col" class="text-center">Role</th>
                 <th scope="col" class="text-center">View</th>
                 <th scope="col" class="text-center">Update</th>
@@ -148,9 +154,20 @@
                     </div>
                 </th>
                 <td class="text-center"><%= user.firstname %>&nbsp<%= user.lastname %></td>
-                <td class="text-center"><%= user.role %></td>
-                <td class="text-center"><a href="#" data-val="<%= userJSON %>" data-toggle="modal"
-                        data-target="#user-modal"><img id="view-icon" src="/images/view.svg" alt="view-img"></a></td>
+                <td class="text-center  d-flex justify-content-center">
+                    <% if (user.role === "Admin") { %>
+                    <div class="text-user-role bg-success text-light border border-success">
+                        <%= user.role %>
+                    </div>
+                    <% } else { %>
+                    <div class="text-user-role bg-secondary text-light border border-secondary">
+                        <%= user.role %>
+                        <% } %>
+                    </div>
+                </td>
+                <td class=" text-center"><a href="#" data-val="<%= userJSON %>" data-toggle="modal"
+                        data-target="#user-modal"><img id="view-icon" src="/images/view.svg" alt="view-img"></a>
+                </td>
 
                 <td class="text-center"><a href="/admin/users/edit-user/<%= user._id %>"><img id="edit-icon"
                             src="/images/edit.svg" alt="edit-img"></a></td>
@@ -172,13 +189,19 @@
 </div>
 
 <script>
-    $(".btn-delete-user").on('click', () => {
-        if (confirm("Delete user?")) {
-            return true;
-        } else {
-            return false;
-        }
-    });
+    $(window).on('load', () => {
+        $(".btn-delete-user").on('click', () => {
+            if (confirm("Delete user?")) {
+                return true;
+            } else {
+                return false;
+            }
+        });
+
+        $(document).ready(function () {
+            $('#users-table').DataTable();
+        });
+    })
 </script>
 
 
@@ -201,5 +224,17 @@
         }
 
     });
+</script>
+
+
+<script>
+    function checkAlertType(msgArray) {
+        msgArray.forEach(message => {
+            if (message.type === "danger") {
+                return "danger";
+            }
+        })
+        return "success";
+    }
 </script>
 <%- include('partials/footer') %>

@@ -32,65 +32,81 @@
             <div class="login-container">
                 <div class="card login-form">
                     <div class="card-body">
+
                         <p class="card-title text-center">
                             Sign in to your <span class="medSpec-text-bold">MedSpecialized</span> Learning
                             Management
                             Center
                         </p>
-                        <div class="card-text">
-                            <!-- Input E-mail Address -->
-                            <div class="form-group">
-                                <div class="form-control d-flex align-items-center">
-                                    <img class="message-img" src="images/message.svg" alt="message-img.svg">
-                                    <input type="email" class="form-control" id="email" name="email" autocomplete="off"
-                                        placeholder="E-mail Address">
+
+
+                        <form action="/login" method="POST">
+                            <div class="card-text">
+                                <!-- Input E-mail Address -->
+                                <div class="form-group">
+                                    <div class="form-control d-flex align-items-center">
+                                        <img class="message-img" src="images/message.svg" alt="message-img.svg">
+                                        <input type="email" class="form-control" id="email" name="email"
+                                            placeholder="E-mail Address">
+                                    </div>
                                 </div>
-                            </div>
 
-                            <!-- Input Password -->
-                            <div class="form-group">
-                                <div class="form-control d-flex">
-                                    <img class="message-img" src="images/lock.svg" alt="lock-img.svg">
-                                    <input type="password" class="form-control" id="password" name="password"
-                                        autocomplete="off" placeholder="Password">
+                                <!-- Input Password -->
+                                <div class="form-group">
+                                    <div class="form-control d-flex">
+                                        <img class="message-img" src="images/lock.svg" alt="lock-img.svg">
+                                        <input type="password" class="form-control" id="password" name="password"
+                                            autocomplete="off" placeholder="Password">
+                                    </div>
                                 </div>
+
+                                <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+                        </form>
+
+                        <!-- Flash Message if Failed to log-in -->
+                        <div class="col-12 mt-2 px-0">
+                            <% if (message.length > 0) { %>
+                            <div class="alert alert-danger alert-dismissible pl-1 d-block">
+                                <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <ul class="my-2">
+                                    <% message.forEach(item => { %>
+                                    <li><%= item.msg %></li>
+                                    <%}) %>
+                                </ul>
                             </div>
-
-                            <button type="submit" class="btn btn-primary btn-block">Sign in</button>
-                            <div class="row justify-content-center" id="forgot-password">
-                                <a href="#" style="font-size: 1rem;">Forgot password?</a>
-                            </div>
-
-
-                            <div class="row align-items-center" id="hr-line">
-                                <hr
-                                    style="width:40%;text-align:left;margin-left:5px; height: 2px; border-color: lightgrey">
-                                <span style="font-size: 0.9rem">or</span>
-                                <hr
-                                    style="width:40%;text-align:right;margin-right:5px; height: 2px; border-color: lightgrey">
-                            </div>
-
-
-                            <div class="row justify-content-center mb-4">
-                                <a class="btn btn-outline-secondary social-login" href=""><img class="social-icon"
-                                        src="images/google.svg" alt="google-logo">
-                                    Sign in with Gmail</a>
-
-                                <a class="btn btn-outline-secondary social-login" href=""><img class="social-icon"
-                                        src="images/mem.png" alt="google-logo">
-                                    Sign in with MEM</a>
-                            </div>
-                            <div class="text-center">
-                                <p style="font-size: 0.9rem;">Back</p>
-                            </div>
-                            </form>
+                            <% } %>
                         </div>
+
+                        <div class="row justify-content-center" id="forgot-password">
+                            <a href="#" style="font-size: 1rem;">Forgot password?</a>
+                        </div>
+                        <div class="row align-items-center" id="hr-line">
+                            <hr style="width:40%;text-align:left;margin-left:5px; height: 2px; border-color: lightgrey">
+                            <span style="font-size: 0.9rem">or</span>
+                            <hr
+                                style="width:40%;text-align:right;margin-right:5px; height: 2px; border-color: lightgrey">
+                        </div>
+
+
+                        <div class="row justify-content-center mb-4">
+                            <a class="btn btn-outline-secondary social-login" href=""><img class="social-icon"
+                                    src="images/google.svg" alt="google-logo">
+                                Sign in with Gmail</a>
+
+                            <a class="btn btn-outline-secondary social-login" href=""><img class="social-icon"
+                                    src="images/mem.png" alt="google-logo">
+                                Sign in with MEM</a>
+                        </div>
+                        <div class="text-center">
+                            <p style="font-size: 0.9rem;">Back</p>
+                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
+    </div>
 
 
     <% - include('partials/footer') %>

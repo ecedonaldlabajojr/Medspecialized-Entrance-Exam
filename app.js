@@ -10,6 +10,7 @@ const {
     validationResult
 } = require('express-validator');
 const passport = require('passport');
+const checkMessageType = require('./util/message');
 
 
 
@@ -43,15 +44,25 @@ app.use(flash());
 app.use((req, res, next) => {
     res.locals.message = req.flash('info');
     next();
-})
+});
 
 
-// _____________ Setup Passport.js for User authentication _____________
+// _____________ Setup Passport.js Middleware for User authentication _____________
+
 // Import User Model
 const User = require('./models/user');
+
+// Passport {Step1} Create Strategy
 passport.use(User.createStrategy());
+
+// Passport {Step2} Application Middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Passport {Step3} Use passport for Sessions
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
 
 // _____________ Setup Database Connection Functions _____________
 const configDB = require('./config/database');
@@ -70,36 +81,103 @@ db.once('open', function () {
 // _____________ Setup Routing _____________
 
 
-// Root Path
+// Route handling root endpoint. If user is already logged in on session, redirect to welcome page. if Not, redirect to log-in.
 app.get('/', (req, res) => {
+    if (req.isAuthenticated()) {
+        res.redirect(`account/${req.user._id}`);
+    } else {
+        req.flash('info', [{
+            msg: 'Invalid username or password.'
+        }]);
+        res.redirect('/login');
+    }
+});
+
+
+// Login Page
+app.get('/login', (req, res) => {
     res.render('login', {});
 });
+
+// Submit Form using username and password
+app.post('/login', (req, res) => {
+    const user = new User({
+        username: req.body.email,
+        password: req.body.password
+    });
+    req.login(user, (err) => {
+        if (!err) {
+            res.redirect(`account/${req.user._id}`);
+        } else {
+            req.flash('info', [{
+                msg: 'Invalid username or password.'
+            }]);
+            res.redirect('/login');
+        }
+    })
+});
+
+// Logout Request Handler
+app.get('/logout', (req, res) => {
+    req.logout();
+    res.redirect('/login');
+})
+
+
+// Proceed to Welcome Page with user ID
+app.get('/account/:userId', (req, res) => {
+    if (req.isAuthenticated()) {
+        res.render('welcome', {
+            loggedUser: req.user
+        });
+    } else {
+        req.flash('info', [{
+            msg: 'Invalid username or password'
+        }]);
+        res.redirect("/");
+    }
+})
 
 
 // Admin view users handler
 app.get('/admin/users', (req, res) => {
-    User.find({}, (err, foundUsers) => {
-        if (!err) {
-            if (!foundUsers) {
-                res.render('admin/users', {
-                    users: null
-                });
+    if (req.isAuthenticated()) {
+        User.find({}, (err, foundUsers) => {
+            let messageType = "success";
+            if (!err) {
+                if (!foundUsers) {
+                    res.render('admin/users', {
+                        users: null,
+                        loggedUser: req.user,
+                        messageType: checkMessageType(req)
+                    });
+                } else {
+                    res.render('admin_users', {
+                        users: foundUsers,
+                        loggedUser: req.user,
+                        messageType: checkMessageType(req)
+                    });
+                }
             } else {
-                res.render('admin_users', {
-                    users: foundUsers
-                });
+                console.log(err);
+                res.redirect('/login');
             }
-        } else {
-            console.log(err);
-            res.redirect('/');
-        }
-    });
+        });
+    } else {
+        res.redirect('/login');
+    }
 });
 
 
 // Create new User -> Use app.route() for chainable route handling (GET&POST)
 app.route('/admin/users/add-user').get((req, res) => {
-    res.render('admin_add_user');
+    if (req.isAuthenticated()) {
+        res.render('admin_add_user', {
+            loggedUser: req.user
+        });
+    } else {
+        res.redirect('/login');
+    }
 
 
 }).post([body('firstname').not().isEmpty().withMessage("Please provide first name"),
@@ -169,22 +247,27 @@ app.route('/admin/users/add-user').get((req, res) => {
 
 // Update Existing User -> Use app.route() for chainable route handling (GET&POST)
 app.route('/admin/users/edit-user/:userId').get((req, res) => {
-    User.findById(req.params.userId, (err, foundUser) => {
-        if (err) {
-            return console.log(err);
-        } else {
-            if (foundUser) {
-                res.render('admin_edit_user', {
-                    user: foundUser
-                });
+    if (req.isAuthenticated()) {
+        User.findById(req.params.userId, (err, foundUser) => {
+            if (err) {
+                return console.log(err);
             } else {
-                req.flash('info', [{
-                    msg: "There was an error fetching the user data."
-                }]);
-                res.redirect('admin/users');
+                if (foundUser) {
+                    res.render('admin_edit_user', {
+                        user: foundUser,
+                        loggedUser: req.user
+                    });
+                } else {
+                    req.flash('info', [{
+                        msg: "There was an error fetching the user data."
+                    }]);
+                    res.redirect('admin/users');
+                }
             }
-        }
-    });
+        });
+    } else {
+        res.redirect('/login');
+    }
 
     // POST Request. Handle form Submission > Evaluate form first using express-validator. If no error, proceed to database record update
 }).post([body('firstname').not().isEmpty().withMessage("Please provide first name"),
@@ -198,7 +281,6 @@ app.route('/admin/users/edit-user/:userId').get((req, res) => {
     errorArray = errorArray.concat(errors.array());
 
     if (req.body.password !== "") {
-        console.log('Password < 5')
         if ((req.body.password).length < 5) {
             errorArray.push({
                 value: "",
@@ -207,7 +289,6 @@ app.route('/admin/users/edit-user/:userId').get((req, res) => {
         };
 
         if (req.body.password !== req.body.passwordConfirmation) {
-            console.log('Password mismatch');
             errorArray.push({
                 value: "",
                 msg: "Passwords do not match. Try again."
@@ -234,7 +315,6 @@ app.route('/admin/users/edit-user/:userId').get((req, res) => {
 
                     // Check if there is new password. Password match-checking is already done above.
                     if (req.body.password !== "") {
-                        console.log(req.body.password);
                         foundUser.setPassword(req.body.password, function (err) {
                             foundUser.save();
                             if (err) {
@@ -258,8 +338,6 @@ app.route('/admin/users/edit-user/:userId').get((req, res) => {
                 return console.log(err);
             }
 
-
-            console.log(foundUser);
             // Save user changes
             foundUser.save(err => {
                 if (err) {
@@ -272,32 +350,43 @@ app.route('/admin/users/edit-user/:userId').get((req, res) => {
             req.flash('info', [{
                 msg: 'Successfully updated user record.'
             }]);
+            req.session.messageType = "success";
             res.redirect('/admin/users');
         })
     }
 
-
-
 });
+
+app.get('/cancel-edit', (req, res) => {
+    req.flash('info', [{
+        msg: "Cancelled edit."
+    }]);
+    req.session.messageType = "danger";
+    res.redirect('/admin/users');
+})
 
 
 // Delete Existing User
 app.get('/admin/users/delete-user/:userId', (req, res) => {
-    User.findOneAndDelete({
-        _id: req.params.userId
-    }, (err) => {
-        if (err) {
-            req.flash('info', [{
-                msg: 'Error fetching user data.'
-            }]);
-            res.redirect('/admin/users');
-        } else {
-            req.flash('info', [{
-                msg: 'Successfully deleted user.'
-            }]);
-            res.redirect('/admin/users');
-        }
-    })
+    if (req.isAuthenticated()) {
+        User.findOneAndDelete({
+            _id: req.params.userId
+        }, (err) => {
+            if (err) {
+                req.flash('info', [{
+                    msg: 'Error fetching user data.'
+                }]);
+                res.redirect('/admin/users');
+            } else {
+                req.flash('info', [{
+                    msg: 'Successfully deleted user.'
+                }]);
+                res.redirect('/admin/users');
+            }
+        })
+    } else {
+        res.redirect('/login');
+    }
 });
 
 
