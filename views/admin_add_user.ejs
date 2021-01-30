@@ -1,7 +1,8 @@
+<!-- Include Header Template -->
 <%- include ('partials/header') %>
+
+<!-- Include Navbar Template -->
 <%- include ('partials/navbar') %>
-
-
 
 
 <!-- ___________________ ACTION BAR ___________________ -->
@@ -26,6 +27,7 @@
                 </div>
                 <% } %>
 
+                <!-- ___________________ REGISTER NEW USER FORM ___________________ -->
                 <form action="/admin/users/add-user" method="POST">
                     <div class="row">
                         <!-- First Name -->
@@ -72,7 +74,7 @@
                                 class="form-control bg-white border-md border-left-0 pl-3">
                         </div>.
 
-                        <!-- Job -->
+                        <!-- Role -->
                         <div class="input-group col-lg-12 mb-4">
                             <div class="input-group-prepend">
                                 <span class="input-group-text bg-white px-2 border-md border-right-0">

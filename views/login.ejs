@@ -1,7 +1,12 @@
-<%- include('partials/header') %>
-<%- include('partials/navbar') %>
+<!-- Include Header Template -->
+<%- include ('partials/header') %>
+
+<!-- Include Navbar Template -->
+<%- include ('partials/navbar') %>
 
 <body class="landing-page">
+
+    <!-- _________________ LANDING TEXT _________________-->
     <div class="landing-text">
         <h3>Learning Experience. Simplified.</h3>
         <div class="text-check">
@@ -21,9 +26,7 @@
     </div>
 
 
-
     <!-- _________________ LOGIN FORM _________________-->
-
     <div class="container">
         <div class="login-wrap">
             <div class="login-container">
@@ -35,7 +38,6 @@
                             Management
                             Center
                         </p>
-
 
                         <form action="/login" method="POST">
                             <div class="card-text">
@@ -74,6 +76,7 @@
                             <% } %>
                         </div>
 
+                        <!-- Forgot Password ********(FEATURE CURRENTLY UNAVAILABLE)******** -->
                         <div class="row justify-content-center" id="forgot-password">
                             <a href="javascript:void(0)" style="font-size: 1rem;" class="feature-disabled"
                                 data-tooltip="Feature unavailable.">Forgot
@@ -86,7 +89,7 @@
                                 style="width:40%;text-align:right;margin-right:5px; height: 2px; border-color: lightgrey">
                         </div>
 
-
+                        <!-- SOCIAL MEDIA LOGIN ********(FEATURE CURRENTLY UNAVAILABLE)******** -->
                         <div class="row justify-content-center mb-4">
                             <button disabled class="btn btn-outline-secondary social-login feature-disabled"
                                 data-tooltip="Feature unavailable."><img class="social-icon" src="images/google.svg"
@@ -107,4 +110,5 @@
             </div>
         </div>
     </div>
+
     <%- include('partials/footer') %>

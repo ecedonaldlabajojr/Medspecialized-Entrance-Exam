@@ -1,11 +1,13 @@
-<%- include('partials/header') %>
+<!-- Include Header Template -->
+<%- include ('partials/header') %>
 
 <div id="section-welcome">
+    <!-- Include Navbar Template -->
     <%- include('partials/navbar') %>
 
 
     <!-- ___________________ ACTION BAR ___________________ -->
-
+    <!-- Display Action bar according to logged user Role -->
     <% if (loggedUser.role === "Trainee") { %>
     <%- include('partials/actionbar_trainee') %>
     <% } else if (loggedUser.role ==="Admin") { %>
