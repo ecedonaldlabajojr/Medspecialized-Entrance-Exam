@@ -11,6 +11,7 @@ const {
 } = require('express-validator');
 const passport = require('passport');
 const checkMessageType = require('./util/message');
+require('dotenv').config();
 
 
 
@@ -31,10 +32,10 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
-app.use(cookieParser('cookiesareyummy'));
+app.use(cookieParser());
 
 app.use(session({
-    secret: 'cookiesareyummy',
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     secure: true
@@ -86,9 +87,9 @@ app.get('/', (req, res) => {
     if (req.isAuthenticated()) {
         res.redirect(`account/${req.user._id}`);
     } else {
-        req.flash('info', [{
-            msg: 'Invalid username or password.'
-        }]);
+        // req.flash('info', [{
+        //     msg: 'Invalid username or password.'
+        // }]);
         res.redirect('/login');
     }
 });
@@ -134,7 +135,7 @@ app.get('/account/:userId', (req, res) => {
         req.flash('info', [{
             msg: 'Invalid username or password'
         }]);
-        res.redirect("/");
+        res.redirect("/login");
     }
 })
 

@@ -237,6 +237,16 @@ a:hover {
     width: 100px !important;
 }
 
+.feature-disabled:hover::after {
+    position: absolute;
+    content: attr(data-tooltip);
+    right: -50px;
+    background-color: #333 !important;
+    color: white !important;
+    padding: .25em .5em;
+    border-radius: 20px;
+}
+
 
 /* ____________________ MODAL - DISPLAY USER DETAILS ____________________ */
 /* Modal Labels*/
