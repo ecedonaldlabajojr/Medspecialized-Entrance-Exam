@@ -97,7 +97,11 @@ app.get('/', (req, res) => {
 
 // Login Page
 app.get('/login', (req, res) => {
-    res.render('login');
+    if (req.isAuthenticated()) {
+        res.redirect(`account/${req.user._id}`);
+    } else {
+        res.render('login');
+    }
 });
 
 // Submit Form using username and password
