@@ -97,25 +97,60 @@ app.get('/', (req, res) => {
 
 // Login Page
 app.get('/login', (req, res) => {
-    res.render('login', {});
+    res.render('login');
 });
 
 // Submit Form using username and password
-app.post('/login', (req, res) => {
-    const user = new User({
-        username: req.body.email,
-        password: req.body.password
-    });
-    req.login(user, (err) => {
-        if (!err) {
-            res.redirect(`account/${req.user._id}`);
-        } else {
+// app.post('/login', (req, res) => {
+//     const user = new User({
+//         username: req.body.email,
+//         password: req.body.password
+//     });
+//     req.login(user, (err) => {
+//         if (!err) {
+//             res.redirect(`account/${req.user._id}`);
+//         } else {
+//             req.flash('info', [{
+//                 msg: 'Invalid username or password.'
+//             }]);
+//             res.redirect('/login');
+//         }
+//     })
+// });
+// 
+// app.post('/login',
+//     passport.authenticate('local', {
+//         failureRedirect: '/login',
+//         failureFlash: "Invalid username or password."
+//     }),
+//     function (req, res) {
+//         res.redirect(`account/${req.user._id}`);
+//     });
+
+app.post('/login', function (req, res, next) {
+    passport.authenticate('local', function (err, user, info) {
+        if (err) {
+            req.flash('info', [{
+                msg: 'Something went wrong logging in.'
+            }]);
+            return res.redirect('/login');
+        }
+        if (!user) {
             req.flash('info', [{
                 msg: 'Invalid username or password.'
             }]);
-            res.redirect('/login');
+            return res.redirect('/login');
         }
-    })
+        req.logIn(user, function (err) {
+            if (err) {
+                req.flash('info', [{
+                    msg: 'Something went wrong logging in.'
+                }]);
+                return res.redirect('/login');
+            }
+            res.redirect(`account/${req.user._id}`);
+        });
+    })(req, res, next);
 });
 
 // Logout Request Handler
