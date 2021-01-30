@@ -161,6 +161,10 @@ app.get('/admin/users', (req, res) => {
                 }
             } else {
                 console.log(err);
+                req.session.messageType = "danger";
+                req.flash('info', [{
+                    msg: "An error occured while fetching user data."
+                }]);
                 res.redirect('/login');
             }
         });
@@ -232,8 +236,13 @@ app.route('/admin/users/add-user').get((req, res) => {
             }, req.body.password, (err, user) => {
                 if (err) {
                     console.log(err);
+                    req.session.messageType = "danger";
+                    req.flash('info', [{
+                        msg: "An error occured while creating new user."
+                    }]);
                     res.redirect('/admin/users');
                 } else {
+                    req.session.messageType = "success";
                     req.flash('info', [{
                         msg: "Successfully added new user."
                     }]);
@@ -242,7 +251,6 @@ app.route('/admin/users/add-user').get((req, res) => {
             });
         }
     })
-
 });
 
 
@@ -251,7 +259,12 @@ app.route('/admin/users/edit-user/:userId').get((req, res) => {
     if (req.isAuthenticated()) {
         User.findById(req.params.userId, (err, foundUser) => {
             if (err) {
-                return console.log(err);
+                console.log(err);
+                req.session.messageType = "danger";
+                req.flash('info', [{
+                    msg: "There was an error fetching the user data."
+                }]);
+                res.redirect('admin/users');
             } else {
                 if (foundUser) {
                     res.render('admin_edit_user', {
@@ -330,13 +343,19 @@ app.route('/admin/users/edit-user/:userId').get((req, res) => {
 
                     // Simpy redirect to edit-user page if an error occurred fetching data on user
                 } else {
+                    req.session.messageType = "danger";
                     req.flash('info', [{
-                        msg: "An error occured while finding the user on db."
+                        msg: "An error occured while fetching user data."
                     }]);
                     res.redirect(`/admin/users/edit-user/${req.params.userId}`);
                 }
             } else {
-                return console.log(err);
+                console.log(err);
+                req.session.messageType = "danger";
+                req.flash('info', [{
+                    msg: "An error occured while fetching user data."
+                }]);
+                res.redirect(`/admin/users/edit-user/${req.params.userId}`);
             }
 
             // Save user changes
@@ -374,8 +393,9 @@ app.get('/admin/users/delete-user/:userId', (req, res) => {
             _id: req.params.userId
         }, (err) => {
             if (err) {
+                req.session.messageType = "danger";
                 req.flash('info', [{
-                    msg: 'Error fetching user data.'
+                    msg: 'Error deleting user data.'
                 }]);
                 res.redirect('/admin/users');
             } else {
