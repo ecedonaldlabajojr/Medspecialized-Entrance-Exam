@@ -22,8 +22,8 @@ This web app uses the following technologies / languages:
 # Features
 
 **This web app has the following features:**
-- [x] User login by email and password by authenticating account credentials via reading from MongoDB users collection from ***MongoDB Atlas*** cloud.
-- [x] Admin role: able to perform CRUD (Create-Read-Update-Delete) user accounts. This feature is only available to "Admin", and is hidden to "Trainee".
+- [x] User login by email and password, authenticating account credentials via reading from ***MongoDB Atlas*** database collection.
+- [x] Admin role: able to perform CRUD (Create-Read-Update-Delete) user accounts. This feature is only available to "Admin", and is hidden to "Trainee". Please use the ***"Admin" button*** with dropdown options.
 
 **This web app doesn't support the following as of the moment:**
 - Login via ***Gmail or MEM*** is currently unavailable.
@@ -32,7 +32,7 @@ This web app uses the following technologies / languages:
 
 # Set-Up
 **Note: The website already fetches user data from ***MongoDB Atlas***. Please ensure internet connectivity.** <br>
-**Please use these credentials to login on both local and deployed website** <br>
+**Please use these credentials to login on both local and deployed website.** <br>
 ## Admin:
 ***username: admin@gmail.com*** <br>
 ***password: 12345***
@@ -51,7 +51,7 @@ https://medspecialized-exam.herokuapp.com/login
 
 ***Please ensure the following are already installed on your computer:***
 - [x] node.js and NPM(Node Package Manager)
-- [x] Text Editor/IDE
+- [x] Text Editor/IDE (for viewing the code)
 
 Kindly follow these steps:
 1. Download the zip file from this repository.
