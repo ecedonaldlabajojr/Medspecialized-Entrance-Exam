@@ -31,7 +31,7 @@ This web app uses the following technologies / languages:
 
 
 # Set-Up
-**Note: The website already fetches user data from ***MongoDB Atlas***. Please ensure internet connectivity.** <br>
+**Note: The website already fetches user data from ***MongoDB Atlas***. Please ensure internet connectivity.** <br><br>
 **Please use these credentials to login on both local and deployed website.** <br>
 ### Admin:
 ***username: admin@gmail.com*** <br>
