@@ -4,7 +4,6 @@ MedSpecialized (Back-End Developer) Coding Exam using Node.js and MongoDB
 ## [Technologies](#Technologies) <br>
 ## [Features](#Features) <br>
 ## [Set-Up](#Set-Up) <br>
-## [Testing](#Testing) <br>
 
 
 # Technologies
@@ -32,35 +31,37 @@ This web app uses the following technologies / languages:
 
 
 # Set-Up
+**Note: The website already fetches user data from ***MongoDB Atlas***. Please ensure internet connectivity.** <br>
+**Please use these credentials to login on both local and deployed website** <br>
+## Admin:
+***username: admin@gmail.com*** <br>
+***password: 12345***
+
+## Trainee:
+***username: trainee_01@gmail.com*** <br>
+***password: 12345***
+
+There are two ways of testing the website:
+1. To test out deployed site(***Hosted on Heroku***),input this URL on your browser:
+```
+https://medspecialized-exam.herokuapp.com/login
+```
+
+2. To test out locally, please follow the following steps:
+
 ***Please ensure the following are already installed on your computer:***
-- [x] node.js
+- [x] node.js and NPM(Node Package Manager)
 - [x] Text Editor/IDE
-- [x] MongoDB Server (Should you want to test the app locally)
 
 Kindly follow these steps:
 1. Download the zip file from this repository.
 2. Extract to a working directory of your choice.
 3. CD to said directory.
-4. On the command line, run:
+4. Firstly, on the command line, install dependencies:
+``` node
+npm install
+```
+Then proceed to run the app:
 ```node
 node app.js
-```
-
-
-# Testing
-**Please use these credentials to login (Admin) on both local and deployed website** <br>
-***username: admin@gmail.com*** <br>
-***password: 11111***
-
-
-- For testing locally: please do the following:
-To run the site, input this URL on your browser:
-```
-http://localhost:3000/login
-```
-***Please note: The website already fetches data from database hosted on MongoDB Atlas. Please ensure internet connection***
-
-- For testing on deployed website, input this URL on your browser:
-```
-https://medspecialized-exam.herokuapp.com/login
 ```
