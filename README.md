@@ -33,11 +33,11 @@ This web app uses the following technologies / languages:
 # Set-Up
 **Note: The website already fetches user data from ***MongoDB Atlas***. Please ensure internet connectivity.** <br>
 **Please use these credentials to login on both local and deployed website.** <br>
-## Admin:
+### Admin:
 ***username: admin@gmail.com*** <br>
 ***password: 12345***
 
-## Trainee:
+### Trainee:
 ***username: trainee_01@gmail.com*** <br>
 ***password: 12345***
 
@@ -46,7 +46,7 @@ There are two ways of testing the website:
 ```
 https://medspecialized-exam.herokuapp.com/login
 ```
-
+<br>
 2. To test out locally, please follow the following steps:
 
 ***Please ensure the following are already installed on your computer:***
