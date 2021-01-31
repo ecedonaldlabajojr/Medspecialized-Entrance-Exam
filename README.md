@@ -64,3 +64,7 @@ Then proceed to run the app:
 ```node
 node app.js
 ```
+Then input this URL on your browser:
+```
+http://localhost:3000/
+```
