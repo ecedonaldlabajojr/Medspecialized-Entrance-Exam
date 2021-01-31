@@ -3,7 +3,7 @@ MedSpecialized (Back-End Developer) Coding Exam using Node.js and MongoDB
 
 ## [Technologies](#Technologies) <br>
 ## [Features](#Features) <br>
-## [Set-Up/Testing](#Set-Up/Testing) <br>
+## [Set-Up](#Set-Up) <br>
 ## [Testing](#Testing) <br>
 
 
