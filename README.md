@@ -31,7 +31,7 @@ This web app uses the following technologies / languages:
 - ***Forgot password*** is currently unavailable.
 
 
-# Set-Up/Testing
+# Set-Up
 ***Please ensure the following are already installed on your computer:***
 - [x] node.js
 - [x] Text Editor/IDE
