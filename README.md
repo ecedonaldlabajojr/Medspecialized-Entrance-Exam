@@ -41,7 +41,7 @@ This web app uses the following technologies / languages:
 ***username: trainee_01@gmail.com*** <br>
 ***password: 12345***
 
-There are two ways of testing the website:
+There are **two ways** of testing the website:
 1. To test out deployed site(***Hosted on Heroku***),input this URL on your browser:
 ```
 https://medspecialized-exam.herokuapp.com/login
