@@ -46,7 +46,6 @@ There are two ways of testing the website:
 ```
 https://medspecialized-exam.herokuapp.com/login
 ```
-<br>
 2. To test out locally, please follow the following steps:
 
 ***Please ensure the following are already installed on your computer:***
