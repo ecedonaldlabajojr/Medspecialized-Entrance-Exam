@@ -3,7 +3,7 @@ MedSpecialized (Back-End Developer) Coding Exam using Node.js and MongoDB
 
 ## [Technologies](#Technologies) <br>
 ## [Features](#Features) <br>
-## [Set-Up](#Set-Up) <br>
+## [Set-Up/Testing](#Set-Up/Testing) <br>
 ## [Testing](#Testing) <br>
 
 
@@ -31,7 +31,7 @@ This web app uses the following technologies / languages:
 - ***Forgot password*** is currently unavailable.
 
 
-# Set-Up
+# Set-Up/Testing
 ***Please ensure the following are already installed on your computer:***
 - [x] node.js
 - [x] Text Editor/IDE
