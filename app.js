@@ -105,32 +105,6 @@ app.get('/login', (req, res) => {
 });
 
 // Submit Form using username and password
-// app.post('/login', (req, res) => {
-//     const user = new User({
-//         username: req.body.email,
-//         password: req.body.password
-//     });
-//     req.login(user, (err) => {
-//         if (!err) {
-//             res.redirect(`account/${req.user._id}`);
-//         } else {
-//             req.flash('info', [{
-//                 msg: 'Invalid username or password.'
-//             }]);
-//             res.redirect('/login');
-//         }
-//     })
-// });
-// 
-// app.post('/login',
-//     passport.authenticate('local', {
-//         failureRedirect: '/login',
-//         failureFlash: "Invalid username or password."
-//     }),
-//     function (req, res) {
-//         res.redirect(`account/${req.user._id}`);
-//     });
-
 app.post('/login', function (req, res, next) {
     passport.authenticate('local', function (err, user, info) {
         if (err) {
