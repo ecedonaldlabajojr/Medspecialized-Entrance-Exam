@@ -46,7 +46,7 @@ There are two ways of testing the website:
 ```
 https://medspecialized-exam.herokuapp.com/login
 ```
-2. To test out locally, please follow the following steps:
+2. To test out locally, see below:
 
 ***Please ensure the following are already installed on your computer:***
 - [x] node.js and NPM(Node Package Manager)
@@ -56,7 +56,7 @@ Kindly follow these steps:
 1. Download the zip file from this repository.
 2. Extract to a working directory of your choice.
 3. CD to said directory.
-4. Firstly, on the command line, install dependencies:
+4. On the command line, install dependencies:
 ``` node
 npm install
 ```
